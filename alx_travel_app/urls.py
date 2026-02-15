@@ -1,41 +1,49 @@
-"""
-URL configuration for alx_travel_app project.
+# listings/urls.py
+from django.urls import path
+from rest_framework.routers import DefaultRouter
+from . import views
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/6.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-from django.contrib import admin
-from django.urls import path, re_path
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
+# Create a router for ViewSets
+router = DefaultRouter()
+router.register(r'listings', views.ListingViewSet)
+router.register(r'bookings', views.BookingViewSet)
+router.register(r'reviews', views.ReviewViewSet)
 
-schema_view = get_schema_view(
-    openapi.Info(
-        title="ALX Travel API",
-        default_version='v1',
-        description="API documentation for ALX Travel App",
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny,),
-)
+# Custom URL patterns for payment views
+payment_urlpatterns = [
+    # Payment initiation and verification
+    path('initiate-payment/', 
+         views.initiate_payment, 
+         name='initiate-payment'),
+    
+    path('verify-payment/<int:payment_id>/', 
+         views.verify_payment, 
+         name='verify-payment'),
+    
+    path('payment-success/', 
+         views.payment_success, 
+         name='payment-success'),
+    
+    path('payment-status/<int:booking_id>/', 
+         views.payment_status, 
+         name='payment-status'),
+    
+    # Combined booking and payment
+    path('create-booking-with-payment/', 
+         views.create_booking_with_payment, 
+         name='create-booking-with-payment'),
+    
+    # Webhook (no authentication required)
+    path('chapa-webhook/', 
+         views.chapa_webhook, 
+         name='chapa-webhook'),
+]
 
+# Combine all URL patterns
 urlpatterns = [
-    path('admin/', admin.site.urls),
-
-    # Include your app's API endpoints
-    path('', include('listings.urls')),
-
-    # Swagger documentation
-    re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    # Include router URLs
+    *router.urls,
+    
+    # Include payment URLs
+    *payment_urlpatterns,
 ]

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Confirmation</title>
+</head>
+<body>
+    <h2>Payment Confirmed!</h2>
+    
+    <p>Dear {{ user.first_name|default:user.username }},</p>
+    
+    <p>Your payment has been successfully processed for booking #{{ booking.id }}.</p>
+    
+    <h3>Booking Details:</h3>
+    <ul>
+        <li>Listing: {{ listing.title }}</li>
+        <li>Check-in: {{ booking.check_in_date }}</li>
+        <li>Check-out: {{ booking.check_out_date }}</li>
+        <li>Guests: {{ booking.guests }}</li>
+        <li>Total Amount: {{ payment.currency }} {{ payment.amount }}</li>
+    </ul>
+    
+    <h3>Payment Details:</h3>
+    <ul>
+        <li>Transaction Reference: {{ payment.transaction_reference }}</li>
+        <li>Payment Date: {{ payment.completed_at }}</li>
+        <li>Payment Method: {{ payment.payment_method }}</li>
+    </ul>
+    
+    <p>Thank you for choosing ALX Travel!</p>
+    
+    <p>Best regards,<br>ALX Travel Team</p>
+</body>
+</html>
