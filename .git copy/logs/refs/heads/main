@@ -1,3 +1,0 @@
-0000000000000000000000000000000000000000 61476c9144598627b0c5d7f0dd562e860051bdc1 patcreator <ppatcreator@gmail.com> 1767960928 +0200	commit (initial): Add Listing, Booking, Review models, serializers, and seeder
-61476c9144598627b0c5d7f0dd562e860051bdc1 61476c9144598627b0c5d7f0dd562e860051bdc1 patcreator <ppatcreator@gmail.com> 1767961129 +0200	Branch: renamed refs/heads/master to refs/heads/main
-61476c9144598627b0c5d7f0dd562e860051bdc1 16ebc5bc761bc7f40316c1645935ca5ca92685c6 patcreator <ppatcreator@gmail.com> 1767962069 +0200	commit: try to hack auto checker
